@@ -1,8 +1,11 @@
-body {
+h1 {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 25px "Lucida Grande", Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: #00B7FF;
+  text-decoration-line: underline;
 }
 
-a {
-  color: #00B7FF;
+p {
+  text-align: center;
 }
