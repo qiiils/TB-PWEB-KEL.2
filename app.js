@@ -2,24 +2,27 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
+var session = require('express-session');
+var dotenv = require('dotenv');
+var db = require('./config/database');
+dotenv.config();
 
-var indexRouter = require('./routes/index');
-var passwordRouter = require('./routes/password');
-var profileRouter = require('./routes/profile');
-var loginRouter = require('./routes/login');
+var usersRouter = require('./routes/users');
 
 var app = express();
+
+(async()=>{
+  awa
+})
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'views')));
+app.use(express.static(path.join(__dirname, 'views', )));
 
-app.use('/', indexRouter);
-app.use('/change-password', passwordRouter);
-app.use('/profile', profileRouter);
-app.use('/login', loginRouter);
+app.use('/', usersRouter);
 
 app.set('view engine', 'ejs');
 
