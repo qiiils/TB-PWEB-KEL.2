@@ -4,7 +4,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var passwordRouter = require('./routes/password');
+var profileRouter = require('./routes/profile');
+var loginRouter = require('./routes/login');
 
 var app = express();
 
@@ -15,6 +17,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'views')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/change-password', passwordRouter);
+app.use('/profile', profileRouter);
+app.use('/login', loginRouter);
+
+app.set('view engine', 'ejs');
+
+app.get('/public/stylesheets/style.css', (req, res) => {
+    res.set('Content-Type', 'text/css');
+    res.sendFile(path.join(__dirname, 'public', 'stylesheets', 'style.css'));
+  });
 
 module.exports = app;
