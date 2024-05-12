@@ -17,9 +17,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'views')));
 
 app.use('/', indexRouter);
-app.use('/password', passwordRouter);
+app.use('/change-password', passwordRouter);
 app.use('/profile', profileRouter);
 app.use('/login', loginRouter);
+
+app.set('view engine', 'ejs');
 
 app.get('/public/stylesheets/style.css', (req, res) => {
     res.set('Content-Type', 'text/css');
