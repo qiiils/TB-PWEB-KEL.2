@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #616161;
+        }
+        #edit-profile-form {
+            max-width: 700px;
+            padding: 50px;
+            border-radius: 10px;
+            background-color: #819cce;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        #profile-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ccc;
+        }
+        #change-photo-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #1c4168;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #change-photo-btn:hover {
+            background-color: #053c77;
+        }
+        #profile-pic-input {
+            display: none;
+        }
+       
+    </style>
+</head>
+<body>
+
+<div id="edit-profile-form">
+    <h2>Edit Profile</h2>
+
+    <div id="profile-container">
+        <img id="profile-image" src="default_profile_pic.jpg" alt="Profile Picture">
+        <br>
+        <label for="profile-pic-input" id="change-photo-btn">Change Photo</label>
+        <input type="file" id="profile-pic-input" accept="image/*">
+    </div>
+
+    <form action="/update_profile" method="post">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br>
+        
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+        
+        <label for="bio">Bio:</label><br>
+        <textarea id="bio" name="bio"></textarea><br>
+        
+        <input type="submit" value="Update">
+    </form>
+</div>
+
+<script>
+    const profilePicInput = document.getElementById("profile-pic-input");
+    const profileImage = document.getElementById("profile-image");
+
+    profilePicInput.addEventListener("change", function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                profileImage.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
+</body>
+</html>
