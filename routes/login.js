@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, 'views', 'index.html'));;
+  res.status(200).send('login');
 });
 
 module.exports = router;
