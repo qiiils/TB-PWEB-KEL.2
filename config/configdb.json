@@ -2,7 +2,7 @@
     "development": {
       "username": "root",
       "password": null,
-      "database": "alumnifti",
+      "database": "db_datamining",
       "host": "localhost",
       "port" : 3307,
       "dialect": "mysql"
