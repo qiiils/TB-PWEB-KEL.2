@@ -13,7 +13,7 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 (async()=>{
-  awa
+  await db.sync();
 })
 
 app.use(logger('dev'));
