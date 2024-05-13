@@ -1,3 +1,4 @@
+
 const User = require('../models/UserModel.js')
 const bcrypt = require('bcrypt')
 export const changePassword = async (req, res, next) =>{
@@ -12,3 +13,4 @@ export const changePassword = async (req, res, next) =>{
         return res.status(400).json({ status: false, error: "Error Occured"});
     }
 }
+
