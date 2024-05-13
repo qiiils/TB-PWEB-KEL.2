@@ -31,4 +31,12 @@ app.get('/public/stylesheets/style.css', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'stylesheets', 'style.css'));
   });
 
+
+
+
+
+  app.listen(3000, ()=>{
+    console.log('server http://localhost:3000')
+  })
+
 module.exports = app;
