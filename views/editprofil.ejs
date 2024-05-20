@@ -59,9 +59,19 @@
         <img id="profile-image" src="default_profile_pic.jpg" alt="Profile Picture">
         <br>
         <label for="profile-pic-input" id="change-photo-btn">Change Photo</label>
-        <input type="file" id="profile-pic-input" accept="image/*">
+        <input type="file" class="block w-full text-sm text-gray-500
+              file:me-4 file:py-2 file:px-4
+              file:rounded-lg file:border-0
+              file:text-sm file:font-semibold
+              file:bg-blue-600 file:text-white
+              hover:file:bg-blue-700
+              file:disabled:opacity-50 file:disabled:pointer-events-none
+              dark:text-neutral-500
+              dark:file:bg-blue-500
+              dark:hover:file:bg-blue-400
+            " id="profile-pic-input" accept="image/*">
     </div>
-
+      
     <form action="/update_profile" method="post">
         <label for="username">Username:</label><br>
         <input type="text" id="username" name="username"><br>
@@ -69,13 +79,11 @@
         <label for="email">Email:</label><br>
         <input type="email" id="email" name="email"><br>
         
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password"><br>
-        
         <label for="bio">Bio:</label><br>
         <textarea id="bio" name="bio"></textarea><br>
         
         <input type="submit" value="Update">
+        <button type="button" onclick="window.location.href='http://localhost:3000/user/change-password'">Change Password</button>
     </form>
 </div>
 
@@ -96,10 +104,3 @@
 </script>
 
 </body>
-
-<<<<<<< HEAD
-</html>
-=======
-</html>
-
->>>>>>> main
