@@ -12,7 +12,9 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
-// router.get('/user/change-password', changePassword);
+router.get('/user/change-password', (req, res) => {
+  res.render('changepw');
+});
 
 router.get('/user/dashboard', function(req, res, next) {
   res.render('profile');
