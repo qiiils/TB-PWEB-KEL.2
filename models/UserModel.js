@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 
 const Sequelize = require('sequelize');
 const db = require("../config/database.js");
 
 const { DataTypes } = Sequelize;
 
+=======
+const Sequelize = require('sequelize');
+const db = require("../config/database.js");
+
+const { DataTypes } = Sequelize;
+
+>>>>>>> main
 const User = db.define('users', {
     uuid: {
         type: DataTypes.STRING,
