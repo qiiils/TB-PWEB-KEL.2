@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const changePassword = async (req, res, next) => {
   email = req.userEmail
   const {currentPassword, newpassword } = req.body;
@@ -5,11 +6,14 @@ const changePassword = async (req, res, next) => {
   try {
     // Retrieve the user from the database
     const user = await admins.findOne({ where: { email } });
+=======
+>>>>>>> 4ee266fdf87e45218954473b5d3c9efb638faa82
 
     // Check if the user exists
     if (!user) {
       return res.status(404).send("User not found");
     }
+<<<<<<< HEAD
 
     // Compare old password
     
@@ -29,3 +33,8 @@ const changePassword = async (req, res, next) => {
     return res.status(500).send("Internal server error");
   }
 };
+=======
+}
+
+
+>>>>>>> 4ee266fdf87e45218954473b5d3c9efb638faa82

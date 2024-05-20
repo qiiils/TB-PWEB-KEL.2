@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { admins } = require("../models");
+=======
+
+import { use } from "../app";
+>>>>>>> 4ee266fdf87e45218954473b5d3c9efb638faa82
 
 const form = (req, res) => {
   const token = req.cookies.token;
@@ -79,6 +84,7 @@ const changePassword = async (req, res, next) => {
     console.error("Error changing password:", error);
     return res.status(500).send("Internal server error");
   }
+<<<<<<< HEAD
 };
 
 
@@ -88,4 +94,6 @@ module.exports = {
   checklogin,
   changePassword
 
+=======
+>>>>>>> 4ee266fdf87e45218954473b5d3c9efb638faa82
 };
