@@ -31,6 +31,7 @@ app.get('/public/stylesheets/style.css', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'stylesheets', 'style.css'));
   });
 
+
   app.get("/preline/preline.js", (req, res) => {
     res.sendFile(__dirname + "/node_modules/preline/dist/preline.js");
   });
@@ -84,6 +85,7 @@ function verifyToken(req, res, next) {
 
 
   app.listen(3001, ()=>{
+
     console.log('server http://localhost:3000')
   })
 
