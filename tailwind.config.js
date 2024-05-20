@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     // configure the paths to all of your source files
-    content: ["./views/*.{html,js,ejs}"],
+    content: ["./views/*.{html,js,ejs}", "node_modules/preline/dist/*.js"],
   
     // enable dark mode via class strategy
     darkMode: 'class',

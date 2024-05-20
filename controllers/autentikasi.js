@@ -1,113 +1,99 @@
+<<<<<<< HEAD
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const { admins } = require("../models");
+=======
 
 import { use } from "../app";
+>>>>>>> 4ee266fdf87e45218954473b5d3c9efb638faa82
 
-export const Login = async (req, res) => {
+const form = (req, res) => {
+  const token = req.cookies.token;
+
+  if (token) {
+    // Jika pengguna sudah memiliki token, arahkan ke halaman profil
+    return res.redirect("/admin/home");
+  }
+  res.render("login", { title: "Login" });
+};
+
+const checklogin = async (req, res) => {
+  const { email, password } = req.body;
   try {
-    const user = await Users.findOne({
-      where: {
-        email: req.body.email, // req body atau halaman login => input email , email = req body emsil
-      },
-    });
+    const foundUser = await admins.findOne({ where: { email } });
 
-    if (!user) {
-      throw new Error("Email tidak ditemukan");
+    if (!foundUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const isValidPassword = await bcrypt.compare(password, foundUser.password);
+
+    if (!isValidPassword) {
+      return res.status(401).json({ message: "Invalid password" });
     }
 
-    const match = await bcrypt.compare(req.body.password, user.password); // const adalah deklarasi data artinya nilainy konstan
-
-    if (!match) { // tanda ! tidak ketemu
-      throw new Error("Password salah");
-    }
-
-    const userId = user.id; 
-    const name = user.name;
-    const email = user.email;
-    const role = user.role;
-    const nim = user.nim;
-    const hp = user.hp;
-    const departemen = user.departemen;
-
-
-
-
-
-    const token = jwt.sign({ userId, name, email,role,nim,hp,departemen }, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "5s",
-    });
-    const refreshToken = jwt.sign({ userId, name, email,role,nim,hp,departemen }, process.env.REFRESH_TOKEN_SECRET, {
-      expiresIn: "10s",
-    });
-
-    await Users.update(
-      {
-        refresh_token: refreshToken,
-      },
-      {
-        where: {
-          id: userId,
-        },
-      }
+    const token = jwt.sign(
+      { id: foundUser.id, email: foundUser.email, role: foundUser.role },
+      process.env.JWT_SECRET_TOKEN,
+      { expiresIn: 86400 }
     );
-
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000,
-      // secure:true
-    });
-    console.log(refreshToken)
-
-    if (req.session) {
-      req.session.user = {
-        userId: userId,
-        name: name,
-        email: email,
-        role: role,
-        nim: nim,
-        hp: hp,
-        departemen:departemen        
-      };
-    } else {
-      console.error('Sesi belum diinisialisasi');
-    }
-
 
     res.cookie("token", token, { httpOnly: true });
 
-    if (user.role === "mahasiswa") {
+    if (foundUser.role == "admin"){
+      return res.redirect("/admin/home");
+    } 
+    else if(foundUser.role == "alumni"){
       return res.redirect("/home");
-    } else if (user.role === "admin") {
-      return res.redirect("/admin/dashboard");
     }
 
-    
-  } catch (error) {
-    console.log(error);
-    res.status(401).send(error.message);
+    res.status(200).send({ auth: true, token: token });
+
+  } catch (err) {
+    console.error("Error during login: ", err);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
-// Ubah Password
+
 const changePassword = async (req, res, next) => {
-  email = req.userEmail 
-  const {currentPassword, newPassword } = req.body;
-
+  email = req.userEmail;
+  const { oldpassword, newpassword } = req.body;
+  
   try {
-    const user = awaut admins,findOne({ where: {email}});
+    // Retrieve the user from the database
+    const user = await admins.findOne({ where: { email } });
 
-    if(!user) {
+    // Check if the user exists
+    if (!user) {
       return res.status(404).send("User not found");
-
-      const isMatch = await bcrypt.compare(currentPassword, user.password);
-      if (!isMatch) {
-        return res.status(400).send("Password is incorrect!");
-      }
-
-      await user.update({ password: await bcrypt.hash(newPassword, 10)});
-      next();
-
-    } catch (error) {
-      console.log("Can not change password", error);
-      return res.status(500).send("Internal Error");
     }
+
+    // Compare old password
+    const isMatch = await bcrypt.compare(oldpassword, user.password);
+    if (!isMatch) {
+      return res.status(400).send("Old password is incorrect");
+    }
+
+    // Update the user record with the new hashed password
+    await user.update({ password: await bcrypt.hash(newpassword, 10) });
+
+    // Send response indicating successful password change
+    return res.status(200).send("Password successfully updated");
+
+  } catch (error) {
+    console.error("Error changing password:", error);
+    return res.status(500).send("Internal server error");
   }
+<<<<<<< HEAD
+};
+
+
+
+module.exports = {
+  form,
+  checklogin,
+  changePassword
+
+=======
+>>>>>>> 4ee266fdf87e45218954473b5d3c9efb638faa82
 };
