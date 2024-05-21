@@ -39,7 +39,7 @@ form {
       </div>
 
         <!-- Form -->
-        <form id="loginForm">
+        <form  method="POST" action="/Login">
           <div class="grid gap-y-4" method="POST" action="/autentikasi/Login">
             <!-- Form Group -->
             <div>
@@ -90,6 +90,57 @@ form {
       </div>
     </div>
   </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const email = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+
+  try {
+    const response = await fetch('/autentikasi/Login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!response.ok) {
+      const result = await response.json();
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: result.message,
+      });
+      return;
+    }
+
+    const { role, redirectUrl } = await response.json();
+
+    // Redirect based on user role
+    if (role === 'admin') {
+      window.location.href = redirectUrl;
+    } else if (role === 'user') {
+      window.location.href = redirectUrl;
+    } else {
+      // Handle other roles or scenarios
+      window.location.href = '/default-dashboard';
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Email or password is incorrect!',
+    });
+  }
+});
+  </script>
+  
+
+  <script src="/preline/preline.js"></script>
 </body>
 
 </html>
