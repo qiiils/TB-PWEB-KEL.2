@@ -35,10 +35,6 @@ app.get('/public/stylesheets/style.css', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'stylesheets', 'style.css'));
   });
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 4ee266fdf87e45218954473b5d3c9efb638faa82
   app.get("/preline/preline.js", (req, res) => {
     res.sendFile(__dirname + "/node_modules/preline/dist/preline.js");
   });
@@ -67,10 +63,7 @@ const sequelize = new Sequelize('db_datamining', 'root', '', {
 
 
   app.listen(3001, ()=>{
-<<<<<<< HEAD
-=======
 
->>>>>>> 4ee266fdf87e45218954473b5d3c9efb638faa82
     console.log('server http://localhost:3000')
   })
 

@@ -6,7 +6,7 @@ const controller = require('../controllers/autentikasi');
 router.use(verifyToken);
 
 router.get('/',verifyToken,function(req, res, next) {
-// res.renderstatu('admin/dashboard', {title: 'home'});
+// res.renderstatus('admin/dashboard', {title: 'home'});
 res.status(200).json({ message: 'jbjkdj' });
   });
   
