@@ -1,14 +1,11 @@
+// admin.js
+
 var express = require('express');
 var router = express.Router();
-const verifyToken = require('../middleware/auth');
-const controller = require('../controllers/autentikasi');
+const adminController = require('../controllers/Admin');
 
-router.use(verifyToken);
+router.get('/home', adminController.renderAdminDashboard);
+router.get('/admin/profile', adminController.viewProfile);
 
-router.get('/',verifyToken,function(req, res, next) {
-// res.renderstatus('admin/dashboard', {title: 'home'});
-res.status(200).json({ message: 'jbjkdj' });
-  });
-  
-  
-  module.exports = router;
+
+module.exports = router;
