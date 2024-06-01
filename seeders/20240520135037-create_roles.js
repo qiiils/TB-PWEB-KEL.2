@@ -3,13 +3,16 @@ const bcrypt = require("bcrypt");
 
 module.exports = {
   async up(queryInterface, Sequelize) {
+    const hashedPasswordAdmin = await bcrypt.hash('admin123', 10);
+    const hashedPasswordUser = await bcrypt.hash('user123', 10);
+
     await queryInterface.bulkInsert("Admins", [
       { 
         id: 1, 
         email: 'dhiya@admin.com', 
         name: 'Dhiya Aqila', 
         nim: '2211521010', 
-        password: 'aqila123', 
+        password: hashedPasswordAdmin, 
         role: 'admin', 
         createdAt: new Date(), 
         updatedAt: new Date() 
@@ -19,7 +22,7 @@ module.exports = {
         email: 'isra@admin.com', 
         name: 'Isra Rahmadina', 
         nim: '2211522030', 
-        password: 'ina123', 
+        password: hashedPasswordAdmin, 
         role: 'admin', 
         createdAt: new Date(), 
         updatedAt: new Date() 
@@ -29,7 +32,7 @@ module.exports = {
         email: 'nabila@admin.com', 
         name: 'Nabila R', 
         nim: '2211523036', 
-        password: 'nabila123', 
+        password: hashedPasswordAdmin, 
         role: 'admin', 
         createdAt: new Date(), 
         updatedAt: new Date() 
@@ -46,7 +49,7 @@ module.exports = {
       email: 'dhiya@user.com', 
       name: 'Dhiya Aqila', 
       nim: '2211521010', 
-      password: 'aqila456', 
+      password: hashedPasswordUser, 
       role: 'user', 
       createdAt: new Date(), 
       updatedAt: new Date() 
@@ -56,7 +59,7 @@ module.exports = {
       email: 'isra@user.com', 
       name: 'Isra Rahmadina', 
       nim: '2211522030', 
-      password: 'ina456', 
+      password: hashedPasswordUser, 
       role: 'user', 
       createdAt: new Date(), 
       updatedAt: new Date() 
@@ -66,7 +69,7 @@ module.exports = {
       email: 'nabila@user.com', 
       name: 'Nabila R', 
       nim: '2211523036', 
-      password: 'nabila456', 
+      password: hashedPasswordUser, 
       role: 'user', 
       createdAt: new Date(), 
       updatedAt: new Date() 

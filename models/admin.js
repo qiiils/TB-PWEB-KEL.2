@@ -1,9 +1,9 @@
 'use strict';
 const Sequelize = require('sequelize');
 const db = require('../config/database');
-const {Model} = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   class Admin extends Model {
     /**
      * Helper method for defining associations.
