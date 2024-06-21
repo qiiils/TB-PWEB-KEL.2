@@ -2,9 +2,8 @@
   "development": {
     "username": "root",
     "password": "",
-    "database": "db_datamining",
+    "database": "db_praktikum",
     "host": "localhost",
-    "port" : 3306,
     "dialect": "mysql"
   },
   "test": {
