@@ -1,73 +1,57 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require('cors');
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var dotenv = require('dotenv');
-const { Sequelize } = require('sequelize');
-var db = require('./models');
+const express = require('express');
+const session = require('express-session');
+const flash = require('connect-flash');
+const path = require('path');
+const app = express();
+const port = 3000;
+const { sequelize } = require('./models');
+const userRoutes = require('./routes/userRoutes');
+const kelasRoutes = require('./routes/kelasRoutes');
+const meetingRoutes = require('./routes/meetingRoutes');
+const moduleRoutes = require('./routes/moduleRoutes');
+const assignmentRoutes = require('./routes/assignmentRoutes');
+const submissionRoutes = require('./routes/submissionRoutes');
+const responsiRoutes = require('./routes/responsiRoutes');
+const discussionRoutes = require('./routes/discussionRoutes');
 
-dotenv.config();
+app.set('view engine', 'ejs'); 
+app.set('views', path.join(__dirname, 'views')); 
+app.use(express.static(path.join(__dirname, 'public')));
 
-var usersRouter = require('./routes/users');
-var loginRouter = require('./routes/login');
-var adminRouter = require('./routes/admin');
-var app = express();
-
-(async()=>{
-  await db.sequelize.sync();
-})();
-
-
-app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(cors());
-/* app.use(session({
+app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static('uploads'));
+
+
+
+app.use(session({
   secret: 'secret-key',
   resave: false,
-  saveUninitialized: true, 
-})); */
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
-app.use('/preline', express.static(path.join(process.cwd(), '/node_modules/preline/dist')));
-
-// Static files 
-app.use(express.static(path.join(__dirname, "./node_modules/preline/dist")));
-app.use(express.static(path.join(__dirname, 'views', )));
-app.use('/admin', express.static(path.join(__dirname, 'views/admin')));
-app.use('/users', express.static(path.join(__dirname, 'views/users')));
-app.use('/layout', express.static(path.join(__dirname, 'views/layout')));
-
-// View Engine 
-app.set('view engine', 'ejs');
-
-// Routes
-app.use('/user', usersRouter);
-app.use('/', loginRouter);
-app.use('/admin', adminRouter);
+  saveUninitialized: true,
+  cookie: { secure: false } // Pastikan secure diatur ke true di production
+}));
 
 
-app.get('/public/stylesheets/style.css', (req, res) => {
-    res.set('Content-Type', 'text/css');
-    res.sendFile(path.join(__dirname, 'public', 'stylesheets', 'style.css'));
+
+
+// routes
+app.use('/', userRoutes);
+app.use('/', kelasRoutes);
+app.use('/', meetingRoutes);
+app.use('/', moduleRoutes);
+app.use('/', assignmentRoutes);
+app.use('/', submissionRoutes);
+app.use('/', responsiRoutes);
+app.use('/', discussionRoutes);
+
+sequelize.sync({ force: false }) 
+  .then(() => {
+    console.log('Database synced');
+  })
+  .catch(err => {
+    console.error('Failed to sync database:', err);
   });
 
-  app.get("/preline/preline.js", (req, res) => {
-    res.sendFile(__dirname + "/node_modules/preline/dist/preline.js");
-  });
-
-
-
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(bodyParser.json());
-
-
-  app.listen(3001, () => {
-    console.log('server http://localhost:3000');
-  });
-
-module.exports = app;
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`);
+});
