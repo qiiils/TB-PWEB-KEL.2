@@ -31,7 +31,7 @@ Object.keys(db).forEach(modelName => {
 });
  
 // Sinkronisasi model
-sequelize.sync({ force: false }).then(() => {
+sequelize.sync({ force: true }).then(() => {
   console.log('Database & tables created!');
 });
  
