@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     Meeting.hasMany(models.Submission, { foreignKey: 'meetingId' }); 
     Meeting.hasMany(models.Response, { foreignKey: 'meetingId' }); 
     Meeting.hasMany(models.Question, { foreignKey: 'meetingId' }); 
-  };
+  }; 
   
 
   return Meeting;
