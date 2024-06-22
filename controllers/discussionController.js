@@ -4,6 +4,7 @@ exports.showDiscussionForum = async (req, res) => {
   try {
     const userId = req.session.user.id;
     const userName = req.session.user.name;
+    const userRole = req.session.user.role;
     // Fetch the current user's information
     const currentUser = await db.User.findOne({ where: { id: userId } });
 
@@ -20,7 +21,7 @@ exports.showDiscussionForum = async (req, res) => {
       return res.status(404).send('Class not found');
     }
 
-    res.render('user/forumDiskusi', { discussions, currentUser, kelas, userName });
+    res.render('user/forumDiskusi', { discussions, currentUser, kelas, userName, userRole});
   } catch (error) {
     console.error('Error fetching discussions:', error);
     res.status(500).send('Server Error');

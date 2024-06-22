@@ -86,13 +86,13 @@
                                       <div class="space-y-2">
                                           <% meeting.Modules.forEach(module => { %>
                                               <div class="flex justify-between items-center bg-white rounded-lg shadow p-4">
-                                                  <a href="/uploads/<%= module.filePath %>" class="text-sm text-gray-900 font-medium italic bg-green-200 text-green-800 px-2 inline-flex leading-5 font-semibold rounded-full" download="/uploads/<%= module.filePath %>">
+                                                  <a href="#" class="text-sm text-gray-900 font-medium italic bg-green-200 text-green-800 px-2 inline-flex leading-5 font-semibold rounded-full" download="/uploads/<%= module.filePath %>">
                                                       <%= module.filePath.replace(/.*?-(.*)/, '$1') %>
                                                   </a>
                                                   <% if (userRole === 'aslab') { %>
                                                       <a href="/delete-module/<%= module.id %>" class="text-sm text-gray-900 font-medium italic bg-red-200 text-red-800 px-2 inline-flex leading-5 font-semibold rounded-full">Delete Modul</a>
                                                   <% } else if (userRole === 'mahasiswa') { %>
-                                                      <a href="/uploads/<%= module.filePath %>" class="text-sm text-gray-900 font-medium italic bg-blue-200 text-blue-800 px-2 inline-flex leading-5 font-semibold rounded-full" download="/uploads/<%= module.filePath %>">Unduh Modul</a>
+                                                      <a href="#" class="text-sm text-gray-900 font-medium italic bg-blue-200 text-blue-800 px-2 inline-flex leading-5 font-semibold rounded-full" download="/uploads/<%= module.filePath %>">Unduh Modul</a>
                                                   <% } %>
                                               </div>
                                           <% }) %>
