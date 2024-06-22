@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "",
-    "database": "dbpraktikum",
+    "database": "praktikum",
     "host": "localhost",
     "dialect": "mysql"
   },
